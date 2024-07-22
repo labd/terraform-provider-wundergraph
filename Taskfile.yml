@@ -1,9 +1,16 @@
 version: '3'
 
 tasks:
+  dependencies:
+    cmds:
+      - go install github.com/bufbuild/buf/cmd/buf@v1.32.2
+      - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.2
+      - go install connectrpc.com/connect/cmd/protoc-gen-connect-go@v1.16.2
+
   format:
     cmds:
       - go fmt ./...
+      - terraform fmt -recursive ./examples
 
   test:
     cmds:
@@ -22,3 +29,7 @@ tasks:
     cmds:
       - go test -race -coverprofile=coverage.txt -covermode=atomic -coverpkg=./... ./...
       - go tool cover -func=coverage.txt
+
+  generate/sdk:
+    cmds:
+      - buf generate --path proto/wg/cosmo/common --path proto/wg/cosmo/platform --path proto/wg/cosmo/notifications --path proto/wg/cosmo/node

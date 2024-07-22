@@ -1,0 +1,21 @@
+version: v2
+managed:
+  enabled: true
+  disable:
+    - file_option: go_package
+      module: buf.build/googleapis/googleapis
+  override:
+    - file_option: go_package_prefix
+      value: github.com/labd/terraform-provider-wundergraph/sdk
+plugins:
+  - local: protoc-gen-connect-go
+    out: sdk
+    opt: paths=source_relative
+  - local: protoc-gen-go
+    out: sdk
+    opt: paths=source_relative
+inputs:
+  -  git_repo: https://github.com/wundergraph/cosmo
+
+
+# https://github.com/wundergraph/cosmo/blob/main/proto/wg/cosmo/platform/v1/platform.proto
