@@ -100,6 +100,8 @@ func (p *WundergraphProvider) Configure(ctx context.Context, req provider.Config
 func (p *WundergraphProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		resources.NewNamespaceResource,
+		resources.NewFederatedSubgraphResource,
+		resources.NewFederatedGraphResource,
 	}
 }
 
